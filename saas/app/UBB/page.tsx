@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import heroImage from '../../docs/Make hero image.png';
+import heroImage from '../../docs/ElevenLabs.png';
 import StarterPaymentModal from '@/components/ui/starter-payment-modal';
 
 export default function NewHackPage() {
@@ -163,9 +163,9 @@ export default function NewHackPage() {
   };
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: '#23003D' }}>
+    <main className="min-h-screen" style={{ backgroundColor: 'white' }}>
       <section className="relative w-full h-56 md:h-72 lg:h-80">
-        <Image src={heroImage} alt="Header" fill priority className="object-cover" />
+        <Image src={heroImage} alt="Header" fill priority className="object-contain" />
       </section>
       {/* Plan cards */}
       <section className="py-10 px-4">
