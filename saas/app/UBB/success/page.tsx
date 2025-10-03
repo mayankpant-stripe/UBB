@@ -215,7 +215,7 @@ export default function SuccessPage() {
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Name</div>
                   <div className="text-black font-bold mt-1 truncate">{customerName || '—'}</div>
                 </div>
-                <div className="rounded-xl bg-white/15 border border-white/20 p-4">
+                <div className="rounded-xl border border-gray-300 p-4" style={{ backgroundColor: '#e5e7eb' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Customer ID</div>
                   <div className="text-black font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
                 </div>

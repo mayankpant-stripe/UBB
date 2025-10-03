@@ -220,7 +220,7 @@ export default function SuccessCorePage() {
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Name</div>
                   <div className="text-black font-bold mt-1 truncate">{customerName || '—'}</div>
                 </div>
-                <div className="rounded-xl p-4 border-2 border-gray-300" style={{ backgroundColor: '#f9f9f9' }}>
+                <div className="rounded-xl p-4 border-2 border-gray-300" style={{ backgroundColor: '#e5e7eb' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Customer ID</div>
                   <div className="text-black font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
                 </div>
