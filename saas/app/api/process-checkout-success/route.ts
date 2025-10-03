@@ -764,9 +764,9 @@ export async function POST(request: NextRequest) {
       const totalAmount = reservedIntent.amount_details.total;
       console.log('Billing intent total amount:', totalAmount);
 
-      // For Core plan with $0 amount, skip PaymentIntent entirely (setup-only)
-      if (flowType === 'core_custom_credits_flow' && totalAmount === 0) {
-        console.log('Core plan with $0 amount - no payment needed (setup-only)');
+      // For Core plan, ALWAYS skip PaymentIntent (it's setup-only, payment handled separately via invoice)
+      if (flowType === 'core_custom_credits_flow') {
+        console.log('Core plan - skipping PaymentIntent creation (payment handled via invoice)');
         paymentIntentId = null;
       }
       // First check if the reserved intent already has a PaymentIntent
@@ -779,15 +779,10 @@ export async function POST(request: NextRequest) {
         // Create PaymentIntent with amount from reserved billing intent
         console.log('Creating PaymentIntent with amount from billing intent:', totalAmount);
         
-        // For Core plan, skip PaymentIntent creation if amount is 0 (setup-only)
-        if (flowType === 'core_custom_credits_flow' && totalAmount === 0) {
-          console.log('Core plan with $0 amount - skipping PaymentIntent creation (setup-only)');
-          paymentIntentId = null; // No payment needed for Core plan
-        } else {
-          // Ensure minimum amount (Stripe requires at least $0.50 for USD)
-          const minAmount = Math.max(totalAmount, 50); // $0.50 minimum
-          console.log('Using amount (ensuring minimum):', minAmount);
-          const paymentIntentResponse = await fetch('https://api.stripe.com/v1/payment_intents', {
+        // Ensure minimum amount (Stripe requires at least $0.50 for USD)
+        const minAmount = Math.max(totalAmount, 50); // $0.50 minimum
+        console.log('Using amount (ensuring minimum):', minAmount);
+        const paymentIntentResponse = await fetch('https://api.stripe.com/v1/payment_intents', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -818,7 +813,6 @@ export async function POST(request: NextRequest) {
         }
 
         paymentIntentId = paymentIntent.id;
-        }
       }
 
       // Step 5 - Commit the billing intent to make it active (reserved -> active)
