@@ -136,13 +136,13 @@ export default function SuccessPage() {
   const availableUnits = data?.creditGrant?.availableUnits || '—';
 
   return (
-    <main className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#2A0148' }}>
+    <main className="min-h-screen relative overflow-hidden" style={{ backgroundColor: 'white' }}>
 
       <div className="relative max-w-6xl mx-auto px-4 py-10">
         {/* Header Row */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="inline-flex items-center justify-center h-10 px-4 rounded-full bg-pink-500 hover:bg-pink-600 text-white text-sm tracking-wide uppercase font-semibold shadow">Customer ID</span>
+            <span className="inline-flex items-center justify-center h-10 px-4 rounded-full bg-black hover:bg-gray-800 text-white text-sm tracking-wide uppercase font-semibold shadow">Customer ID</span>
             <input
               value={manualCustomerId}
               onChange={(e) => setManualCustomerId(e.target.value)}
@@ -192,35 +192,35 @@ export default function SuccessPage() {
                   setLoadingManual(false);
                 }
               }}
-              className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold shadow transition-colors"
+              className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-black hover:bg-gray-800 text-white font-semibold shadow transition-colors"
             >
               {loadingManual ? 'Loading...' : 'Load'}
             </button>
           </div>
-          <Link href="/newhack" className="inline-flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
+          <Link href="/UBB" className="inline-flex items-center justify-center bg-black hover:bg-gray-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
             Manage Subscription
           </Link>
         </div>
 
         {/* Content Card */}
-        <div className="rounded-2xl p-6 text-white shadow-xl border-2 border-white/30" style={{ backgroundColor: '#2A0148' }}>
-          {loading && <p className="text-white/80">Loading customer details...</p>}
+        <div className="rounded-2xl p-6 text-black shadow-xl border-2 border-gray-300" style={{ backgroundColor: 'white' }}>
+          {loading && <p className="text-black/80">Loading customer details...</p>}
           {error && <p className="text-red-300">Error: {error}</p>}
           {data && (
             <div className="space-y-8">
               {/* At-a-glance strip */}
               <div className="grid sm:grid-cols-3 gap-4">
-                <div className="rounded-xl p-4 border-2 border-white/50" style={{ backgroundColor: '#3a0166' }}>
-                  <div className="text-white text-xs uppercase tracking-wide font-bold">Name</div>
-                  <div className="text-white font-bold mt-1 truncate">{customerName || '—'}</div>
+                <div className="rounded-xl p-4 border-2 border-gray-300" style={{ backgroundColor: '#f9f9f9' }}>
+                  <div className="text-black text-xs uppercase tracking-wide font-bold">Name</div>
+                  <div className="text-black font-bold mt-1 truncate">{customerName || '—'}</div>
                 </div>
-                <div className="rounded-xl p-4 border-2 border-white/50" style={{ backgroundColor: '#3a0166' }}>
-                  <div className="text-white text-xs uppercase tracking-wide font-bold">Customer ID</div>
-                  <div className="text-white font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
+                <div className="rounded-xl p-4 border-2 border-gray-300" style={{ backgroundColor: '#f9f9f9' }}>
+                  <div className="text-black text-xs uppercase tracking-wide font-bold">Customer ID</div>
+                  <div className="text-black font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
                 </div>
-                <div className="rounded-xl p-4 border-2 border-white/50" style={{ backgroundColor: '#3a0166' }}>
-                  <div className="text-white text-xs uppercase tracking-wide font-bold">Email</div>
-                  <div className="text-white font-bold mt-1 truncate">{customerEmail || '—'}</div>
+                <div className="rounded-xl p-4 border-2 border-gray-300" style={{ backgroundColor: '#f9f9f9' }}>
+                  <div className="text-black text-xs uppercase tracking-wide font-bold">Email</div>
+                  <div className="text-black font-bold mt-1 truncate">{customerEmail || '—'}</div>
                 </div>
               </div>
 
@@ -228,27 +228,27 @@ export default function SuccessPage() {
 
               {/* Credit Grants */}
               <section>
-                <div className="inline-flex items-center gap-2 bg-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
+                <div className="inline-flex items-center gap-2 bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
                   <span>Credit Grants</span>
                 </div>
-                <div className="rounded-xl p-6 border-2 border-white/50 text-white" style={{ backgroundColor: '#3a0166' }}>
+                <div className="rounded-xl p-6 border-2 border-gray-300 text-black" style={{ backgroundColor: '#f9f9f9' }}>
                   <div className="grid md:grid-cols-2 gap-6 mb-4">
-                    <span className="pill text-white font-bold border-2" style={{ backgroundColor: '#5a1a8f', borderColor: 'rgba(255,255,255,0.6)' }}>Granted Credits</span>
-                    <span className="pill text-white font-bold border-2" style={{ backgroundColor: '#5a1a8f', borderColor: 'rgba(255,255,255,0.6)' }}>Available Credits</span>
+                    <span className="pill text-black font-bold border-2" style={{ backgroundColor: 'white', borderColor: 'rgba(0,0,0,0.3)' }}>Granted Credits</span>
+                    <span className="pill text-black font-bold border-2" style={{ backgroundColor: 'white', borderColor: 'rgba(0,0,0,0.3)' }}>Available Credits</span>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <span className="metric text-white font-bold border-2" style={{ backgroundColor: '#5a1a8f', borderColor: 'rgba(255,255,255,0.6)' }}>{grantedUnits}</span>
-                    <span className="metric text-white font-bold border-2" style={{ backgroundColor: '#5a1a8f', borderColor: 'rgba(255,255,255,0.6)' }}>{availableUnits}</span>
+                    <span className="metric text-black font-bold border-2" style={{ backgroundColor: 'white', borderColor: 'rgba(0,0,0,0.3)' }}>{grantedUnits}</span>
+                    <span className="metric text-black font-bold border-2" style={{ backgroundColor: 'white', borderColor: 'rgba(0,0,0,0.3)' }}>{availableUnits}</span>
                   </div>
                 </div>
               </section>
 
               {/* Input Usage */}
               <section>
-                <div className="inline-flex items-center gap-2 bg-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
+                <div className="inline-flex items-center gap-2 bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
                   <span>Input Usage</span>
                 </div>
-                <div className="rounded-xl p-6 border-2 border-white/50" style={{ backgroundColor: '#3a0166' }}>
+                <div className="rounded-xl p-6 border-2 border-gray-300" style={{ backgroundColor: 'white' }}>
                   <div className="flex justify-center">
                     <button className="action bg-white !text-black hover:bg-gray-100" onClick={() => setOpenAiModal(true)}>Input Operations</button>
                   </div>
@@ -347,7 +347,7 @@ export default function SuccessPage() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-md disabled:bg-gray-400"
+                  className="flex-1 px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-md disabled:bg-gray-400"
                   disabled={openAiSubmitting}
                 >
                   {openAiSubmitting ? 'Submitting...' : 'Submit'}
