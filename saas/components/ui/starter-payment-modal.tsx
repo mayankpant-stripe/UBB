@@ -108,7 +108,7 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
       case 'core':
         return {
           title: 'Core Plan',
-          price: '$10/month',
+          price: '$100 Prepaid Credits (V2)',
           features: ['Unlimited active scenarios', 'Scheduled scenarios', 'Increased data transfer limits', 'Access to Make API']
         };
       case 'free':
