@@ -116,8 +116,8 @@ export async function POST(request: NextRequest) {
       mode: 'setup',
       payment_method_types: ['card'],
       customer: customer.id, // Use the customer we just created
-      success_url: `${baseUrl}/newhack/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/newhack?checkout=cancelled`,
+      success_url: `${baseUrl}/UBB/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/UBB?checkout=cancelled`,
       metadata: {
         customer_name: name,
         customer_email: email,
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
       sessionId: session.id,
       customerId: customer.id,
       testClockId: testClock.id,
-      redirectUrl: `${baseUrl}/newhack/success?customerid=${customer.id}`
+      redirectUrl: `${baseUrl}/UBB/success?customerid=${customer.id}`
     });
 
   } catch (error) {

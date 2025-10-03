@@ -87,8 +87,8 @@ export async function POST(request: NextRequest) {
       mode: 'setup',
       payment_method_types: ['card'],
       customer: customer.id,
-      success_url: `${baseUrl}/newhack/success_core?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/newhack?checkout=cancelled`,
+      success_url: `${baseUrl}/UBB/success_core?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/UBB?checkout=cancelled`,
       metadata: {
         customer_name: name,
         customer_email: email,

@@ -102,8 +102,8 @@ export async function POST(request: NextRequest) {
           price: 'price_1S0gTH9geAvQAmidisTN1O3w',
         },
       ],
-      success_url: `${baseUrl}/newhack/success_pay_as_you_go?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/newhack?checkout=cancelled`,
+      success_url: `${baseUrl}/UBB/success_pay_as_you_go?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/UBB?checkout=cancelled`,
       metadata: {
         customer_name: name,
         customer_email: email,
