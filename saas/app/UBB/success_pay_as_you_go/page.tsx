@@ -132,15 +132,17 @@ export default function SuccessPayAsYouGoPage() {
     <main className="min-h-screen relative overflow-hidden" style={{ backgroundColor: 'white' }}>
 
       <div className="relative max-w-6xl mx-auto px-4 py-10">
-        {/* Header Row */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        {/* Main Container Box */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+          {/* Header Row */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="inline-flex items-center justify-center h-10 px-4 rounded-full bg-black hover:bg-gray-800 text-white text-sm tracking-wide uppercase font-semibold shadow">Customer ID</span>
+            <span className="inline-flex items-center justify-center h-10 px-4 rounded-full bg-blue-700 hover:bg-blue-800 text-white text-sm tracking-wide uppercase font-semibold shadow">Customer ID</span>
             <input
               value={manualCustomerId}
               onChange={(e) => setManualCustomerId(e.target.value)}
               placeholder="cus_..."
-              className="h-10 w-[20ch] md:w-[24ch] bg-white text-gray-900 text-sm px-3 rounded-full shadow outline-none placeholder-gray-400"
+              className="h-10 w-[20ch] md:w-[24ch] text-gray-900 text-sm px-3 rounded-full shadow outline-none placeholder-gray-400 border border-blue-200" style={{ backgroundColor: '#eff6ff' }}
             />
             <button
               onClick={async () => {
@@ -185,12 +187,12 @@ export default function SuccessPayAsYouGoPage() {
                   setLoadingManual(false);
                 }
               }}
-              className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-black hover:bg-gray-800 text-white font-semibold shadow transition-colors"
+              className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-blue-700 hover:bg-blue-800 text-white font-semibold shadow transition-colors"
             >
               {loadingManual ? 'Loading...' : 'Load'}
             </button>
           </div>
-          <Link href="/UBB" className="inline-flex items-center justify-center bg-black hover:bg-gray-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
+          <Link href="/UBB" className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
             Manage Subscription
           </Link>
         </div>
@@ -203,15 +205,15 @@ export default function SuccessPayAsYouGoPage() {
             <div className="space-y-8">
               {/* At-a-glance strip */}
               <div className="grid sm:grid-cols-3 gap-4">
-                <div className="rounded-xl bg-white/15 border border-white/20 p-4">
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}">
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Name</div>
                   <div className="text-black font-bold mt-1 truncate">{customerName || '—'}</div>
                 </div>
-                <div className="rounded-xl border border-gray-300 p-4" style={{ backgroundColor: '#e5e7eb' }}>
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Customer ID</div>
                   <div className="text-black font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
                 </div>
-                <div className="rounded-xl bg-white/15 border border-white/20 p-4">
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}">
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Email</div>
                   <div className="text-black font-bold mt-1 truncate">{customerEmail || '—'}</div>
                 </div>
@@ -221,10 +223,10 @@ export default function SuccessPayAsYouGoPage() {
 
               {/* Credit Grants */}
               <section>
-                <div className="inline-flex items-center gap-2 bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
+                <div className="inline-flex items-center gap-2 bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
                   <span>Credit Grants</span>
                 </div>
-                <div className="rounded-xl border border-gray-300 bg-white p-6">
+                <div className="rounded-xl border border-gray-200 bg-white p-6">
                   <div className="grid md:grid-cols-2 gap-6 mb-4">
                     <span className="pill text-black font-bold bg-white border border-gray-300">Granted Credits</span>
                     <span className="pill text-black font-bold bg-white border border-gray-300">Available Credits</span>
@@ -238,17 +240,19 @@ export default function SuccessPayAsYouGoPage() {
 
               {/* Input Usage */}
               <section>
-                <div className="inline-flex items-center gap-2 bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
+                <div className="inline-flex items-center gap-2 bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow mb-4">
                   <span>Input Usage</span>
                 </div>
-                <div className="rounded-xl border border-gray-300 bg-white p-6">
+                <div className="rounded-xl border border-gray-200 bg-white p-6">
                   <div className="flex justify-center">
-                    <button className="action green" onClick={() => setApiCallsModal(true)}>API calls</button>
+                    <button className="action bg-blue-700 text-white hover:bg-blue-800" onClick={() => setApiCallsModal(true)}>API calls</button>
                   </div>
                 </div>
               </section>
             </div>
           )}
+        </div>
+        {/* End Main Container Box */}
         </div>
       </div>
 
@@ -341,7 +345,7 @@ export default function SuccessPayAsYouGoPage() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-md disabled:bg-gray-400"
+                  className="flex-1 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-md disabled:bg-gray-400"
                   disabled={apiCallsSubmitting}
                 >
                   {apiCallsSubmitting ? 'Submitting...' : 'Submit'}
