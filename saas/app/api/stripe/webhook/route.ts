@@ -33,6 +33,21 @@ export async function POST(request: NextRequest) {
       console.log('Subscription ID:', session.subscription);
       console.log('Session ID:', session.id);
       console.log('Payment Status:', session.payment_status);
+      console.log('Session Mode:', session.mode);
+      
+      // Skip processing for setup mode sessions (Core, Advanced, Pro plans)
+      // These are processed by /api/process-checkout-success instead
+      if (session.mode === 'setup') {
+        console.log('⏭️  Skipping webhook processing for setup mode session');
+        console.log('⏭️  This session will be processed by /api/process-checkout-success');
+        break;
+      }
+      
+      // Only process subscription mode sessions (Free plan)
+      if (!session.subscription) {
+        console.log('⏭️  Skipping webhook processing - no subscription found');
+        break;
+      }
       
       // Define and initialize custid variable
       let custid: string | null = null;
@@ -111,11 +126,22 @@ export async function POST(request: NextRequest) {
               const subscriptionPrice = subscription.items.data[0].price.unit_amount || 0;
               const subscriptionCurrency = subscription.items.data[0].price.currency;
               
-              // Calculate credit grant amount: 10x the subscription price
-              const creditGrantAmount = subscriptionPrice * 10;
+              // Get flow type from session metadata to determine credit grant amount
+              const flowType = session.metadata?.flow_type || '';
+              let creditGrantAmount: number;
+              
+              // Core plan: constant $100 (10000 cents)
+              if (flowType === 'core_custom_credits_flow') {
+                creditGrantAmount = 10000; // $100 in cents
+                console.log('Core Plan: Using constant credit grant amount');
+              } else {
+                // Other plans: 10x the subscription price
+                creditGrantAmount = subscriptionPrice * 10;
+                console.log('Other Plan: Calculating credit grant as 10x subscription price');
+              }
               
               console.log('Subscription price:', subscriptionPrice, subscriptionCurrency.toUpperCase());
-              console.log('Credit grant amount (10x):', creditGrantAmount, subscriptionCurrency.toUpperCase());
+              console.log('Credit grant amount:', creditGrantAmount, subscriptionCurrency.toUpperCase());
               
               const options = {
                 amount: {
@@ -180,11 +206,22 @@ export async function POST(request: NextRequest) {
               const subscriptionPrice = subscription.items.data[0].price.unit_amount || 0;
               const subscriptionCurrency = subscription.items.data[0].price.currency;
               
-              // Calculate invoice amount (10x subscription price)
-              const invoiceAmount = subscriptionPrice * 10;
+              // Get flow type from session metadata to determine invoice amount
+              const flowType = session.metadata?.flow_type || '';
+              let invoiceAmount: number;
+              
+              // Core plan: constant $100 (10000 cents)
+              if (flowType === 'core_custom_credits_flow') {
+                invoiceAmount = 10000; // $100 in cents
+                console.log('Core Plan: Using constant invoice amount of $100');
+              } else {
+                // Other plans: 10x the subscription price
+                invoiceAmount = subscriptionPrice * 10;
+                console.log('Other Plan: Calculating invoice as 10x subscription price');
+              }
               
               console.log('Subscription price:', subscriptionPrice, subscriptionCurrency.toUpperCase());
-              console.log('Invoice amount (10x):', invoiceAmount, subscriptionCurrency.toUpperCase());
+              console.log('Invoice amount:', invoiceAmount, subscriptionCurrency.toUpperCase());
               
               // Get the customer's payment methods to find the one used in checkout
               const paymentMethods = await stripe.paymentMethods.list({

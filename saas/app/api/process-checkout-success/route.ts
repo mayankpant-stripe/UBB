@@ -319,8 +319,8 @@ export async function POST(request: NextRequest) {
       const finalizedInvoice = await stripe.invoices.finalizeInvoice(invoice.id);
       console.log('Invoice finalized:', finalizedInvoice.id, 'Amount:', finalizedInvoice.amount_due);
 
-      // Step 5: Create billing credit grant (£100 GBP)
-      console.log('Step 5: Creating billing credit grant in GBP');
+      // Step 5: Create billing credit grant ($100 GBP)
+      console.log('Step 5: Creating billing credit grant in USD');
       const creditGrantResponse = await fetch('https://api.stripe.com/v1/billing/credit_grants', {
         method: 'POST',
         headers: {
@@ -328,7 +328,7 @@ export async function POST(request: NextRequest) {
           'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`
         },
         body: new URLSearchParams({
-          'amount[monetary][currency]': 'gbp',
+          'amount[monetary][currency]': 'usd',
           'amount[monetary][value]': '10000',
           'amount[type]': 'monetary',
           'applicability_config[scope][price_type]': 'metered',
@@ -760,21 +760,34 @@ export async function POST(request: NextRequest) {
       // Step 4.5 - Get or create PaymentIntent
       let paymentIntentId;
 
+      // Check if payment is needed based on the total amount
+      const totalAmount = reservedIntent.amount_details.total;
+      console.log('Billing intent total amount:', totalAmount);
+
+      // For Core plan with $0 amount, skip PaymentIntent entirely (setup-only)
+      if (flowType === 'core_custom_credits_flow' && totalAmount === 0) {
+        console.log('Core plan with $0 amount - no payment needed (setup-only)');
+        paymentIntentId = null;
+      }
       // First check if the reserved intent already has a PaymentIntent
-      if (reservedIntent.payment_intent) {
+      else if (reservedIntent.payment_intent) {
         paymentIntentId = typeof reservedIntent.payment_intent === 'string' 
           ? reservedIntent.payment_intent 
           : reservedIntent.payment_intent.id;
         console.log('Using existing PaymentIntent from reserved intent:', paymentIntentId);
       } else {
         // Create PaymentIntent with amount from reserved billing intent
-        const totalAmount = reservedIntent.amount_details.total;
         console.log('Creating PaymentIntent with amount from billing intent:', totalAmount);
         
-        // Ensure minimum amount (Stripe requires at least $0.50 for USD)
-        const minAmount = Math.max(totalAmount, 50); // $0.50 minimum
-        console.log('Using amount (ensuring minimum):', minAmount);
-        const paymentIntentResponse = await fetch('https://api.stripe.com/v1/payment_intents', {
+        // For Core plan, skip PaymentIntent creation if amount is 0 (setup-only)
+        if (flowType === 'core_custom_credits_flow' && totalAmount === 0) {
+          console.log('Core plan with $0 amount - skipping PaymentIntent creation (setup-only)');
+          paymentIntentId = null; // No payment needed for Core plan
+        } else {
+          // Ensure minimum amount (Stripe requires at least $0.50 for USD)
+          const minAmount = Math.max(totalAmount, 50); // $0.50 minimum
+          console.log('Using amount (ensuring minimum):', minAmount);
+          const paymentIntentResponse = await fetch('https://api.stripe.com/v1/payment_intents', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -805,14 +818,14 @@ export async function POST(request: NextRequest) {
         }
 
         paymentIntentId = paymentIntent.id;
+        }
       }
 
       // Step 5 - Commit the billing intent to make it active (reserved -> active)
       console.log('Committing billing intent:', reservedIntent.id);
-      console.log('Billing intent total amount:', reservedIntent.amount_details.total);
+      console.log('Billing intent total amount:', totalAmount);
       
       // Check if payment is required based on the total amount
-      const totalAmount = reservedIntent.amount_details.total;
       const commitBody = totalAmount > 0 ? { payment_intent: paymentIntentId } : {};
       
       console.log('Commit body:', commitBody);
