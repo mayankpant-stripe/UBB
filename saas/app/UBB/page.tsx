@@ -176,7 +176,7 @@ export default function NewHackPage() {
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Pay as you Go</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
                 <span className="align-top text-2xl mr-1">$</span>100
-                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits</span>
+                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits (V1)</span>
               </div>
               <div className="text-gray-500 text-sm mb-6">Top up when credits expire</div>
               <button
@@ -206,10 +206,10 @@ export default function NewHackPage() {
             <div className="text-center">
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Core</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
-                <span className="align-top text-2xl mr-1">$</span>10
-                <span className="text-base font-medium text-gray-500 ml-1">/ month</span>
+                <span className="align-top text-2xl mr-1">$</span>100
+                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits (V2)</span>
               </div>
-              <div className="text-gray-500 text-sm mb-6">10$ credits/month</div>
+              <div className="text-gray-500 text-sm mb-6">Top up when credits expire</div>
               <button
                 onClick={handleCoreClick}
                 disabled={isProcessing}

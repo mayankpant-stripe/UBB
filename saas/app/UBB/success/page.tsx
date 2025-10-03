@@ -144,7 +144,7 @@ export default function SuccessPage() {
         <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
           {/* Header Row */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-3 flex-wrap">
             <span className="inline-flex items-center justify-center h-10 px-4 rounded-full bg-blue-700 hover:bg-blue-800 text-white text-sm tracking-wide uppercase font-semibold shadow">Customer ID</span>
             <input
               value={manualCustomerId}
@@ -199,10 +199,11 @@ export default function SuccessPage() {
             >
               {loadingManual ? 'Loading...' : 'Load'}
             </button>
+            </div>
+            <Link href="/UBB" className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
+              Manage Subscription
+            </Link>
           </div>
-          <Link href="/UBB" className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
-            Manage Subscription
-          </Link>
         </div>
 
         {/* Content Card */}
@@ -213,7 +214,7 @@ export default function SuccessPage() {
             <div className="space-y-8">
               {/* At-a-glance strip */}
               <div className="grid sm:grid-cols-3 gap-4">
-                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}">
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Name</div>
                   <div className="text-black font-bold mt-1 truncate">{customerName || '—'}</div>
                 </div>
@@ -221,7 +222,7 @@ export default function SuccessPage() {
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Customer ID</div>
                   <div className="text-black font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
                 </div>
-                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}">
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Email</div>
                   <div className="text-black font-bold mt-1 truncate">{customerEmail || '—'}</div>
                 </div>
@@ -263,7 +264,6 @@ export default function SuccessPage() {
           )}
         </div>
         {/* End Main Container Box */}
-        </div>
       </div>
 
       {/* utility styles for chips/buttons in one place */}

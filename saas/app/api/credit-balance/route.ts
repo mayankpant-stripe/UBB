@@ -92,6 +92,16 @@ async function computeCreditBalance(customerId: string) {
       const grantId = grant?.id || grant?.credit_grant_id || grant?.credit_grant || null;
       if (!grantId) continue;
 
+      // Get the original grant amount from the grant object itself
+      const originalGrantAmount = grant?.amount?.monetary?.value 
+        ?? grant?.amount?.custom_pricing_unit?.value
+        ?? grant?.amount?.value
+        ?? 0;
+      const originalIsMonetary = Boolean(grant?.amount?.monetary) && !grant?.amount?.custom_pricing_unit;
+      
+      let originalGrantValue = Number(originalGrantAmount) || 0;
+      if (originalIsMonetary) originalGrantValue = originalGrantValue / 100;
+
       const filter = encodeURIComponent(
         JSON.stringify({
           applicability_scope: { price_type: 'metered' },
@@ -110,7 +120,8 @@ async function computeCreditBalance(customerId: string) {
       const sumText = await sumRes.text();
       if (!sumRes.ok) {
         console.warn('[credit-balance] summary error for', grantId, sumRes.status, sumText);
-        perGrantSummaries.push({ grantId, granted: 0, available: 0, error: `${sumRes.status}: ${sumText}` });
+        perGrantSummaries.push({ grantId, granted: originalGrantValue, available: 0, error: `${sumRes.status}: ${sumText}` });
+        totalGranted += originalGrantValue;
         continue;
       }
       const sumJson = sumText ? JSON.parse(sumText) : {};
@@ -119,30 +130,21 @@ async function computeCreditBalance(customerId: string) {
         ? sumJson.balances[0]
         : sumJson;
 
-      // Prefer custom pricing unit values when present; fallback to monetary/value
       // available: balances[0].available_balance.custom_pricing_unit.value OR .monetary.value OR .value
       const availableValRaw =
         summaryNode?.available_balance?.custom_pricing_unit?.value
         ?? summaryNode?.available_balance?.monetary?.value
         ?? summaryNode?.available_balance?.value
         ?? '0';
-      // granted: balances[0].ledger_balance.custom_pricing_unit.value OR .monetary.value OR .value
-      const grantedValRaw =
-        summaryNode?.ledger_balance?.custom_pricing_unit?.value
-        ?? summaryNode?.ledger_balance?.monetary?.value
-        ?? summaryNode?.ledger_balance?.value
-        ?? '0';
       const availableIsMonetary = Boolean(summaryNode?.available_balance?.monetary) && !summaryNode?.available_balance?.custom_pricing_unit;
-      const grantedIsMonetary = Boolean(summaryNode?.ledger_balance?.monetary) && !summaryNode?.ledger_balance?.custom_pricing_unit;
 
       let a = Number(availableValRaw) || 0;
-      let g = Number(grantedValRaw) || 0;
       if (availableIsMonetary) a = a / 100;
-      if (grantedIsMonetary) g = g / 100;
+      
       totalAvailable += a;
-      totalGranted += g;
-      perGrantSummaries.push({ grantId, granted: g, available: a });
-      console.log('[credit-balance] grant summary', { grantId, granted: g, available: a });
+      totalGranted += originalGrantValue;  // Use original grant amount, not current balance
+      perGrantSummaries.push({ grantId, granted: originalGrantValue, available: a });
+      console.log('[credit-balance] grant summary', { grantId, granted: originalGrantValue, available: a });
     }
   return {
     success: true,

@@ -258,7 +258,7 @@ export default function SuccessCorePage() {
                 </div>
                 <div className="rounded-xl p-6 border-2 border-gray-300" style={{ backgroundColor: 'white' }}>
                   <div className="flex justify-center">
-                    <button className="action bg-blue-700 text-white hover:bg-blue-800" onClick={() => setOpenAiModal(true)}>Input Event38</button>
+                    <button className="action bg-blue-700 text-white hover:bg-blue-800" onClick={() => setOpenAiModal(true)}>Input Events</button>
                   </div>
                 </div>
               </section>

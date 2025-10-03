@@ -205,7 +205,7 @@ export default function SuccessPayAsYouGoPage() {
             <div className="space-y-8">
               {/* At-a-glance strip */}
               <div className="grid sm:grid-cols-3 gap-4">
-                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}">
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Name</div>
                   <div className="text-black font-bold mt-1 truncate">{customerName || '—'}</div>
                 </div>
@@ -213,7 +213,7 @@ export default function SuccessPayAsYouGoPage() {
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Customer ID</div>
                   <div className="text-black font-bold font-mono mt-1 truncate">{customerId || '—'}</div>
                 </div>
-                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}">
+                <div className="rounded-xl border border-blue-200 p-4" style={{ backgroundColor: '#eff6ff' }}>
                   <div className="text-black text-xs uppercase tracking-wide font-bold">Email</div>
                   <div className="text-black font-bold mt-1 truncate">{customerEmail || '—'}</div>
                 </div>
@@ -252,8 +252,8 @@ export default function SuccessPayAsYouGoPage() {
             </div>
           )}
         </div>
-        {/* End Main Container Box */}
         </div>
+        {/* End Main Container Box */}
       </div>
 
       {/* utility styles for chips/buttons in one place */}
