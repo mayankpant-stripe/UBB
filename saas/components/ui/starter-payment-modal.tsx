@@ -7,7 +7,7 @@ interface StarterPaymentModalProps {
   onClose: () => void;
   onSuccess: (data: { customerId: string; billingIntentId?: string; subscriptionId?: string; testClockId?: string }) => void;
   onError: (error: string) => void;
-  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual';
+  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual' | 'ona-core';
 }
 
 const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({ 
@@ -52,6 +52,8 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
         apiEndpoint = '/api/create-perlego-termly-flow';
       } else if (planType === 'perlego-annual') {
         apiEndpoint = '/api/create-perlego-annual-flow';
+      } else if (planType === 'ona-core') {
+        apiEndpoint = '/api/create-ona-core-flow';
       } else {
         onError('Unknown plan type');
         return;
@@ -140,6 +142,12 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
           title: 'Perlego Annual',
           price: '£8/month (billed £96 annually)',
           features: ['33% savings', 'Premium support', 'Early access to new books', 'Exclusive webinars']
+        };
+      case 'ona-core':
+        return {
+          title: 'Ona Core Plan',
+          price: '$20/month',
+          features: ['100 credits/month', 'Sandboxed Ona Environments', 'Ona Agent with Claude Sonnet 4.5', 'Professional edit/review with VS Code Web']
         };
       default:
         return {

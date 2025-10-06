@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import heroImage from '../../docs/ElevenLabs.png';
+import heroImage from '../../docs/Ona.png';
 import StarterPaymentModal from '@/components/ui/starter-payment-modal';
 
 export default function NewHackPage() {
@@ -10,7 +10,7 @@ export default function NewHackPage() {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<'starter' | 'advanced' | 'pro' | 'core' | 'free'>('starter');
+  const [selectedPlan, setSelectedPlan] = useState<'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'ona-core'>('ona-core');
   const [isUsageOpen, setIsUsageOpen] = useState(false);
   const [usageCustomerId, setUsageCustomerId] = useState('');
   const [usageDate, setUsageDate] = useState(() => new Date().toISOString().slice(0,10));
@@ -86,7 +86,7 @@ export default function NewHackPage() {
   // previous "three buttons" handlers removed
 
   const handleProClick = () => {
-    setSelectedPlan('pro');
+    setSelectedPlan('ona-core');
     setIsModalOpen(true);
     setMessage('');
     setMessageType('');
@@ -169,44 +169,16 @@ export default function NewHackPage() {
       </section>
       {/* Plan cards */}
       <section className="py-10 px-4">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Free card */}
-          <div className="w-full bg-white rounded-2xl shadow-xl p-6">
-            <div className="text-center">
-              <div className="text-sm font-semibold text-[#2A0148] mb-1">Pay as you Go</div>
-              <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
-                <span className="align-top text-2xl mr-1">$</span>100
-                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits</span></div>
-              <div className="text-gray-500 text-sm mb-6">(Products & Prices)</div>
-              <button
-                onClick={handleFreeClick}
-                disabled={isProcessing}
-                className="w-full h-12 bg-[#2A0148] hover:bg-[#3a0166] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold rounded-full transition-colors duration-200 shadow-md"
-              >
-                {isProcessing ? 'Processing...' : 'Get started'}
-              </button>
-              <div className="text-gray-700 text-sm mt-6">For individuals getting started with automation</div>
-            </div>
-
-            <div className="mt-6">
-              <div className="text-gray-900 font-semibold mb-3">Free includes:</div>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>No-code visual workflow builder</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>2000+ apps</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Routers & filters</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Customer support</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>15-minute minimum interval between runs</span></li>
-              </ul>
-            </div>
-          </div>
+        <div className="mx-auto grid max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Core card */}
           <div className="w-full bg-white rounded-2xl shadow-xl p-6">
             <div className="text-center">
-              <div className="text-sm font-semibold text-[#2A0148] mb-1">Core</div>
+              <div className="text-sm font-semibold text-[#2A0148] mb-1">Free</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
                 <span className="align-top text-2xl mr-1">$</span>100
-                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits</span></div>
-              <div className="text-gray-500 text-sm mb-6">(Pricing Plan)</div>
+                <span className="text-base font-medium text-gray-500 ml-1"> of free usage </span>
+              </div>
+              <div className="text-gray-500 text-sm mb-6">Upgrade thereafter</div>
               <button
                 onClick={handleCoreClick}
                 disabled={isProcessing}
@@ -219,11 +191,11 @@ export default function NewHackPage() {
             <div className="mt-6">
               <div className="text-gray-900 font-semibold mb-3">Free includes:</div>
               <ul className="space-y-2 text-gray-700">
-              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>No-code visual workflow builder</span></li>
-              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>2000+ apps</span></li>
-              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Routers & filters</span></li>
-              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Customer support</span></li>
-              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>15-minute minimum interval between runs</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Sandboxed Ona Environments with 4 cores, 16GB RAM, 80GB disk</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Ona Agent with Claude Sonnet 4.5</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Professional edit/review with VS Code Web</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>One click transition to desktop IDE</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Work from any device</span></li>
              </ul>
             </div>
           </div>
@@ -231,11 +203,11 @@ export default function NewHackPage() {
           {/* Pro card */}
           <div className="w-full bg-white rounded-2xl shadow-xl p-6">
             <div className="text-center">
-              <div className="text-sm font-semibold text-[#2A0148] mb-1">Pro</div>
+              <div className="text-sm font-semibold text-[#2A0148] mb-1">Core</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
-                <span className="align-top text-2xl mr-1">$</span>18.82
+                <span className="align-top text-2xl mr-1">$</span>20
                 <span className="text-base font-medium text-gray-500 ml-1">/ month</span></div>
-              <div className="text-gray-500 text-sm mb-6">10,000 credits/month</div>
+              <div className="text-gray-500 text-sm mb-6">100 credits/month</div>
               <button
                 onClick={handleProClick}
                 disabled={isProcessing}
