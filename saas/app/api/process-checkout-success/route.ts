@@ -178,8 +178,8 @@ export async function POST(request: NextRequest) {
       });
       console.log('Customer updated with name from modal:', customerName, 'metadata and test clock reference');
       
-    } else if (flowType === 'starter_custom_flow' || flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'free_flow') {
-      const flowName = flowType === 'starter_custom_flow' ? 'Starter' : flowType === 'free_flow' ? 'Free' : flowType === 'core_custom_credits_flow' ? 'Core' : 'Advanced';
+    } else if (flowType === 'starter_custom_flow' || flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'free_flow' || flowType === 'perlego_monthly_flow') {
+      const flowName = flowType === 'starter_custom_flow' ? 'Starter' : flowType === 'free_flow' ? 'Free' : flowType === 'core_custom_credits_flow' ? 'Core' : flowType === 'perlego_monthly_flow' ? 'Perlego-Monthly' : 'Advanced';
       console.log(`Processing ${flowName} custom flow - customer and test clock already created`);
       
       // Test clock was already created in the custom flow, just reference it
@@ -620,8 +620,8 @@ export async function POST(request: NextRequest) {
       invoiceId = paidInvoice.id;
       creditGrantId = creditGrant.id;
       
-    } else if (flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow') {
-      // Advanced/Pro/Core flow: Get pricing plan details and create billing intent
+    } else if (flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'perlego_monthly_flow') {
+      // Advanced/Pro/Core/Perlego flow: Get pricing plan details and create billing intent
       
       // Step 2 - Get pricing plan details  
       const pricingPlanId = session.metadata?.pricing_plan_id 
@@ -629,6 +629,8 @@ export async function POST(request: NextRequest) {
               ? 'bpp_test_61TDiJJYF0IjlFXST16T5kls95SQJJF9DR1pbaQwqE08' // Pro plan
               : flowType === 'core_custom_credits_flow'
               ? 'bpp_test_61TMZYslMhAuWqiDV16T5kls95SQJJF9DR1pbaQwqC3M' // Core plan
+              : flowType === 'perlego_monthly_flow'
+              ? 'bpp_test_61TOd12oNrKP9NFMe16T5kls95SQJJF9DR1pbaQwqV7w' // Perlego Monthly plan
               : 'bpp_test_61TCaMaZ0UAUj0zMo16T5kls95SQJJF9DR1pbaQwqQDY'); // Advanced plan
       
       console.log('Getting Advanced pricing plan details for:', pricingPlanId);
@@ -1014,7 +1016,8 @@ export async function POST(request: NextRequest) {
     const isProFlow = flowType === 'pro_custom_credits_flow';
     const isCoreFlow = flowType === 'core_custom_credits_flow';
     const isFreeFlow = flowType === 'free_flow';
-    const isPricingPlanFlow = flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow';
+    const isPerlegoFlow = flowType === 'perlego_monthly_flow';
+    const isPricingPlanFlow = flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'perlego_monthly_flow';
     const planName = isPricingPlanFlow ? 'Pricing Plan' : isFreeFlow ? 'Free Plan' : 'Rate Card Plan';
     
     return NextResponse.json({
@@ -1048,6 +1051,8 @@ export async function POST(request: NextRequest) {
         cadenceId: cadence.id,
         pricingPlanId: (session.metadata?.pricing_plan_id || (isProFlow 
           ? 'bpp_test_61TDiJJYF0IjlFXST16T5kls95SQJJF9DR1pbaQwqE08' 
+          : isPerlegoFlow
+          ? 'bpp_test_61TOd12oNrKP9NFMe16T5kls95SQJJF9DR1pbaQwqV7w'
           : 'bpp_test_61TCaMaZ0UAUj0zMo16T5kls95SQJJF9DR1pbaQwqQDY')),
         billingIntentId: finalSubscription.id,
         status: finalSubscription.status
