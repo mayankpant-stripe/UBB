@@ -286,7 +286,7 @@ export default function PerlegoSuccessPage() {
                 if (usageEvents === '' || !Number.isFinite(Number(usageEvents))) return;
                 try {
                   setUsageSubmitting(true);
-                  const resp = await fetch('/api/meter-operations', {
+                  const resp = await fetch('/api/meter-books', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
