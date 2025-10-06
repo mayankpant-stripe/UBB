@@ -126,7 +126,7 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
       case 'perlego-monthly':
         return {
           title: 'Perlego Monthly',
-          price: '£12/month',
+          price: '$12/month',
           features: ['Unlimited book access', 'Download offline', 'Note-taking & highlights', 'Multi-device sync']
         };
       case 'perlego-termly':

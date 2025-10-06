@@ -630,7 +630,7 @@ export async function POST(request: NextRequest) {
               : flowType === 'core_custom_credits_flow'
               ? 'bpp_test_61TMZYslMhAuWqiDV16T5kls95SQJJF9DR1pbaQwqC3M' // Core plan
               : flowType === 'perlego_monthly_flow'
-              ? 'bpp_test_61TOd12oNrKP9NFMe16T5kls95SQJJF9DR1pbaQwqV7w' // Perlego Monthly plan
+              ? 'bpp_test_61TOjFji316HZFMam16T5kls95SQJJF9DR1pbaQwqHHM' // Perlego Monthly plan
               : 'bpp_test_61TCaMaZ0UAUj0zMo16T5kls95SQJJF9DR1pbaQwqQDY'); // Advanced plan
       
       console.log('Getting Advanced pricing plan details for:', pricingPlanId);
@@ -696,7 +696,7 @@ export async function POST(request: NextRequest) {
 
       // Step 3 - Create billing intent
       const billingIntentOptions = {
-        currency: "usd",
+        currency: 'usd',
         cadence: cadence.id,
         actions: [
           {
@@ -1052,7 +1052,7 @@ export async function POST(request: NextRequest) {
         pricingPlanId: (session.metadata?.pricing_plan_id || (isProFlow 
           ? 'bpp_test_61TDiJJYF0IjlFXST16T5kls95SQJJF9DR1pbaQwqE08' 
           : isPerlegoFlow
-          ? 'bpp_test_61TOd12oNrKP9NFMe16T5kls95SQJJF9DR1pbaQwqV7w'
+          ? 'bpp_test_61TOjFji316HZFMam16T5kls95SQJJF9DR1pbaQwqHHM'
           : 'bpp_test_61TCaMaZ0UAUj0zMo16T5kls95SQJJF9DR1pbaQwqQDY')),
         billingIntentId: finalSubscription.id,
         status: finalSubscription.status

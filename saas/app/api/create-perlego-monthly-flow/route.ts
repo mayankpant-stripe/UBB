@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         'test_clock': testClock.id,
         'metadata[created_via]': 'perlego_monthly_flow',
         'metadata[plan]': 'perlego-monthly',
-        'metadata[pricing_plan_id]': 'bpp_test_61TOd12oNrKP9NFMe16T5kls95SQJJF9DR1pbaQwqV7w',
+        'metadata[pricing_plan_id]': 'bpp_test_61TOjFji316HZFMam16T5kls95SQJJF9DR1pbaQwqHHM',
         'metadata[test_clock_id]': testClock.id,
         'metadata[timestamp]': new Date().toISOString()
       })
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
         customer_name: name,
         customer_email: email,
         plan: 'perlego-monthly',
-        pricing_plan_id: 'bpp_test_61TOd12oNrKP9NFMe16T5kls95SQJJF9DR1pbaQwqV7w',
+        pricing_plan_id: 'bpp_test_61TOjFji316HZFMam16T5kls95SQJJF9DR1pbaQwqHHM',
         test_clock_id: testClock.id,
         flow_type: 'perlego_monthly_flow'
       },
