@@ -12,7 +12,7 @@ export function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
   
   // Route prefixes that should NOT have BPP header and footer
-  const cleanPrefixes = ['/hackathonpage', '/newhack', '/UBB'];
+  const cleanPrefixes = ['/hackathonpage', '/newhack', '/UBB', '/Perlego'];
   
   const isCleanRoute = cleanPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(prefix + '/'));
 

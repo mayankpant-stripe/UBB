@@ -7,7 +7,7 @@ interface StarterPaymentModalProps {
   onClose: () => void;
   onSuccess: (data: { customerId: string; billingIntentId?: string; subscriptionId?: string; testClockId?: string }) => void;
   onError: (error: string) => void;
-  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free';
+  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual';
 }
 
 const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({ 
@@ -46,6 +46,12 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
         apiEndpoint = '/api/create-core-flow';
       } else if (planType === 'free') {
         apiEndpoint = '/api/create-free-flow';
+      } else if (planType === 'perlego-monthly') {
+        apiEndpoint = '/api/create-perlego-monthly-flow';
+      } else if (planType === 'perlego-termly') {
+        apiEndpoint = '/api/create-perlego-termly-flow';
+      } else if (planType === 'perlego-annual') {
+        apiEndpoint = '/api/create-perlego-annual-flow';
       } else {
         onError('Unknown plan type');
         return;
@@ -116,6 +122,24 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
           title: 'Pay as you Go Plan',
           price: '$0/month',
           features: ['No-code visual workflow builder', '2000+ apps', 'Routers & filters']
+        };
+      case 'perlego-monthly':
+        return {
+          title: 'Perlego Monthly',
+          price: '£12/month',
+          features: ['Unlimited book access', 'Download offline', 'Note-taking & highlights', 'Multi-device sync']
+        };
+      case 'perlego-termly':
+        return {
+          title: 'Perlego Termly',
+          price: '£10/month (billed £30 every 3 months)',
+          features: ['17% savings', 'Priority support', 'Advanced search', 'Export citations']
+        };
+      case 'perlego-annual':
+        return {
+          title: 'Perlego Annual',
+          price: '£8/month (billed £96 annually)',
+          features: ['33% savings', 'Premium support', 'Early access to new books', 'Exclusive webinars']
         };
       default:
         return {
