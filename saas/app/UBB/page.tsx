@@ -176,9 +176,8 @@ export default function NewHackPage() {
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Pay as you Go</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
                 <span className="align-top text-2xl mr-1">$</span>100
-                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits (V1)</span>
-              </div>
-              <div className="text-gray-500 text-sm mb-6">Top up when credits expire</div>
+                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits</span></div>
+              <div className="text-gray-500 text-sm mb-6">(Products & Prices)</div>
               <button
                 onClick={handleFreeClick}
                 disabled={isProcessing}
@@ -192,7 +191,6 @@ export default function NewHackPage() {
             <div className="mt-6">
               <div className="text-gray-900 font-semibold mb-3">Free includes:</div>
               <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>1,000 credits/month</span></li>
                 <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>No-code visual workflow builder</span></li>
                 <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>2000+ apps</span></li>
                 <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Routers & filters</span></li>
@@ -207,9 +205,8 @@ export default function NewHackPage() {
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Core</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
                 <span className="align-top text-2xl mr-1">$</span>100
-                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits (V2)</span>
-              </div>
-              <div className="text-gray-500 text-sm mb-6">Top up when credits expire</div>
+                <span className="text-base font-medium text-gray-500 ml-1"> Prepaid Credits</span></div>
+              <div className="text-gray-500 text-sm mb-6">(Pricing Plan)</div>
               <button
                 onClick={handleCoreClick}
                 disabled={isProcessing}
@@ -217,16 +214,17 @@ export default function NewHackPage() {
               >
                 {isProcessing ? 'Processing...' : 'Get started'}
               </button>
-              <div className="text-gray-700 text-sm mt-6">For freelancers and solopreneurs automating simple workflows</div>
+              <div className="text-gray-700 text-sm mt-6">For individuals getting started with automation</div>
             </div>
             <div className="mt-6">
-              <div className="text-gray-900 font-semibold mb-3">Everything in Free, plus:</div>
+              <div className="text-gray-900 font-semibold mb-3">Free includes:</div>
               <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Unlimited active scenarios</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>More control with scheduled scenarios, down to the minute</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Increased data transfer limits</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Access to the Make API</span></li>
-              </ul>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>No-code visual workflow builder</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>2000+ apps</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Routers & filters</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>Customer support</span></li>
+              <li className="flex items-start gap-2"><span className="text-green-600 mt-0.5">✔</span><span>15-minute minimum interval between runs</span></li>
+             </ul>
             </div>
           </div>
 
@@ -236,8 +234,7 @@ export default function NewHackPage() {
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Pro</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
                 <span className="align-top text-2xl mr-1">$</span>18.82
-                <span className="text-base font-medium text-gray-500 ml-1">/ month</span>
-              </div>
+                <span className="text-base font-medium text-gray-500 ml-1">/ month</span></div>
               <div className="text-gray-500 text-sm mb-6">10,000 credits/month</div>
               <button
                 onClick={handleProClick}
