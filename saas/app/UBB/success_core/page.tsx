@@ -38,6 +38,10 @@ export default function SuccessCorePage() {
   const [claudeDate, setClaudeDate] = useState(() => new Date().toISOString().slice(0,10));
   const [claudeEvents, setClaudeEvents] = useState<number | ''>('');
   const [claudeSubmitting, setClaudeSubmitting] = useState(false);
+  const [topUpModal, setTopUpModal] = useState(false);
+  const [invoiceAmount, setInvoiceAmount] = useState<number>(100);
+  const [creditAmount, setCreditAmount] = useState<number>(100);
+  const [topUpSubmitting, setTopUpSubmitting] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -199,9 +203,17 @@ export default function SuccessCorePage() {
               {loadingManual ? 'Loading...' : 'Load'}
             </button>
           </div>
-          <Link href="/UBB" className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
-            Manage Subscription
-          </Link>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setTopUpModal(true)}
+              className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors"
+            >
+              Top Up
+            </button>
+            <Link href="/UBB" className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
+              Manage Subscription
+            </Link>
+          </div>
         </div>
 
         {/* Core Plan Success Title */}
@@ -361,6 +373,91 @@ export default function SuccessCorePage() {
                   disabled={openAiSubmitting}
                 >
                   {openAiSubmitting ? 'Submitting...' : 'Submit'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Top Up Modal */}
+      {topUpModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h2 className="text-2xl font-bold mb-4 text-black">Top Up Credits</h2>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!data?.customerId) {
+                  alert('Customer ID not available');
+                  return;
+                }
+                setTopUpSubmitting(true);
+                try {
+                  const response = await fetch('/api/UBB-create-invoice-and-credit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      customerId: data.customerId,
+                      invoiceAmount,
+                      creditAmount
+                    })
+                  });
+                  const result = await response.json();
+                  if (result.success) {
+                    alert(result.message);
+                    setTopUpModal(false);
+                    // Reload the page to show updated credit balance
+                    window.location.reload();
+                  } else {
+                    alert('Error: ' + (result.details || result.error));
+                  }
+                } catch (error) {
+                  alert('Failed to create top-up: ' + error);
+                } finally {
+                  setTopUpSubmitting(false);
+                }
+              }}
+            >
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-black">Invoice Amount ($)</label>
+                  <input
+                    type="number"
+                    value={invoiceAmount}
+                    onChange={(e) => setInvoiceAmount(Number(e.target.value))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black bg-blue-50"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-black">Credit Grant ($)</label>
+                  <input
+                    type="number"
+                    value={creditAmount}
+                    onChange={(e) => setCreditAmount(Number(e.target.value))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black bg-blue-50"
+                    min="1"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => !topUpSubmitting && setTopUpModal(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md"
+                  disabled={topUpSubmitting}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-md disabled:bg-gray-400"
+                  disabled={topUpSubmitting}
+                >
+                  {topUpSubmitting ? 'Submitting...' : 'Submit'}
                 </button>
               </div>
             </form>

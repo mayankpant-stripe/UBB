@@ -38,6 +38,10 @@ export default function SuccessPage() {
   const [claudeDate, setClaudeDate] = useState(() => new Date().toISOString().slice(0,10));
   const [claudeEvents, setClaudeEvents] = useState<number | ''>('');
   const [claudeSubmitting, setClaudeSubmitting] = useState(false);
+  const [manageSubModal, setManageSubModal] = useState(false);
+  const [invoiceAmount, setInvoiceAmount] = useState<number>(20);
+  const [creditAmount, setCreditAmount] = useState<number>(100);
+  const [manageSubSubmitting, setManageSubSubmitting] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -199,9 +203,12 @@ export default function SuccessPage() {
               {loadingManual ? 'Loading...' : 'Load'}
             </button>
           </div>
-          <Link href="/ona" className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors">
-            Manage Subscription
-          </Link>
+          <button 
+            onClick={() => setManageSubModal(true)}
+            className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-5 rounded-xl shadow transition-colors"
+          >
+            Top Up
+          </button>
         </div>
 
         {/* Content Card */}
@@ -363,6 +370,97 @@ export default function SuccessPage() {
       )}
 
       {/* Claude and Grok modals removed for custom units success page */}
+
+      {/* Manage Subscription Modal */}
+      {manageSubModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Manage Subscription</h2>
+              <button
+                onClick={() => !manageSubSubmitting && setManageSubModal(false)}
+                className="text-gray-400 hover:text-gray-600 disabled:cursor-not-allowed"
+                disabled={manageSubSubmitting}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                try {
+                  setManageSubSubmitting(true);
+                  const resp = await fetch('/api/Ona-create-invoice-and-credit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      customerId,
+                      invoiceAmount,
+                      creditAmount
+                    })
+                  });
+                  const json = await resp.json();
+                  if (!resp.ok || !json.success) {
+                    throw new Error(json.error || 'Failed to create invoice and credit grant');
+                  }
+                  alert('Invoice and credit grant created successfully!');
+                  setManageSubModal(false);
+                } catch (err) {
+                  console.error(err);
+                  alert(err instanceof Error ? err.message : 'Failed to create invoice and credit grant');
+                } finally {
+                  setManageSubSubmitting(false);
+                }
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Invoice Amount ($)</label>
+                <input
+                  type="number"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  value={invoiceAmount}
+                  onChange={(e) => setInvoiceAmount(Number(e.target.value))}
+                  min={0}
+                  step={1}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Ona Credits Granted</label>
+                <input
+                  type="number"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  value={creditAmount}
+                  onChange={(e) => setCreditAmount(Number(e.target.value))}
+                  min={0}
+                  step={1}
+                  required
+                />
+              </div>
+              <div className="flex space-x-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => !manageSubSubmitting && setManageSubModal(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md"
+                  disabled={manageSubSubmitting}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-md disabled:bg-gray-400"
+                  disabled={manageSubSubmitting}
+                >
+                  {manageSubSubmitting ? 'Processing...' : 'Submit'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
