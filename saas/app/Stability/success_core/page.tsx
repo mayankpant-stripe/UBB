@@ -216,10 +216,10 @@ export default function SuccessCorePage() {
           </div>
         </div>
 
-        {/* Core Plan Success Title */}
+        {/* Stability Core Plan Success Title */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-black mb-2">Core Plan Success!</h1>
-          <p className="text-black/80 text-lg">Your Core Plan subscription is now active</p>
+          <h1 className="text-4xl font-bold text-black mb-2">Stability Core Plan Success!!</h1>
+          <p className="text-black/80 text-lg">Your Stability Core Plan subscription is now active</p>
         </div>
 
         {/* Content Card */}

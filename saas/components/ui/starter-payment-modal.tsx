@@ -7,7 +7,7 @@ interface StarterPaymentModalProps {
   onClose: () => void;
   onSuccess: (data: { customerId: string; billingIntentId?: string; subscriptionId?: string; testClockId?: string }) => void;
   onError: (error: string) => void;
-  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual' | 'ona-core' | 'stability-core';
+  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual' | 'ona-core' | 'stability-core' | 'stability-pro';
 }
 
 const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({ 
@@ -42,6 +42,8 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
         apiEndpoint = '/api/create-advanced-flow';
       } else if (planType === 'pro') {
         apiEndpoint = '/api/create-custom-credits-flow';
+      } else if (planType === 'stability-pro') {
+        apiEndpoint = '/api/stability-custom-credits-flow';
       } else if (planType === 'core') {
         apiEndpoint = '/api/create-core-flow';
       } else if (planType === 'free') {
@@ -114,6 +116,12 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
           title: 'Pro Plan',
           price: '$18.82/month',
           features: ['Priority execution', 'Custom variables', 'Log search', 'Email support']
+        };
+      case 'stability-pro':
+        return {
+          title: 'Stability Pro Plan',
+          price: '$100,000',
+          features: ['500,000 StabilityAI Credits', 'Priority scenario execution', 'Custom variables', 'Full-text execution log search']
         };
       case 'core':
         return {

@@ -12,7 +12,7 @@ export default function NewHackPage() {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'stability-core'>('starter');
+  const [selectedPlan, setSelectedPlan] = useState<'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'stability-core' | 'stability-pro'>('starter');
   const [isUsageOpen, setIsUsageOpen] = useState(false);
   const [usageCustomerId, setUsageCustomerId] = useState('');
   const [usageDate, setUsageDate] = useState(() => new Date().toISOString().slice(0,10));
@@ -88,7 +88,7 @@ export default function NewHackPage() {
   // previous "three buttons" handlers removed
 
   const handleProClick = () => {
-    setSelectedPlan('pro');
+    setSelectedPlan('stability-pro');
     setIsModalOpen(true);
     setMessage('');
     setMessageType('');
@@ -102,7 +102,7 @@ export default function NewHackPage() {
 
 
   const handleModalSuccess = (data: { customerId: string; billingIntentId?: string; subscriptionId?: string; testClockId?: string }) => {
-    const planName = selectedPlan === 'advanced' ? 'Advanced' : selectedPlan === 'pro' ? 'Pro' : selectedPlan === 'core' ? 'Core' : selectedPlan === 'stability-core' ? 'Stability Core' : selectedPlan === 'free' ? 'Free' : 'Starter';
+    const planName = selectedPlan === 'advanced' ? 'Advanced' : selectedPlan === 'pro' ? 'Pro' : selectedPlan === 'stability-pro' ? 'Stability Pro' : selectedPlan === 'core' ? 'Core' : selectedPlan === 'stability-core' ? 'Stability Core' : selectedPlan === 'free' ? 'Free' : 'Starter';
     const subscriptionId = data.subscriptionId || data.billingIntentId;
     const testClockInfo = data.testClockId ? `, Test Clock: ${data.testClockId}` : '';
     setMessage(`Success! Customer created and subscribed to ${planName} plan. Customer ID: ${data.customerId}, Subscription ID: ${subscriptionId}${testClockInfo}`);

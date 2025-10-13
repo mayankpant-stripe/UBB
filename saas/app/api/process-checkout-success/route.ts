@@ -178,8 +178,8 @@ export async function POST(request: NextRequest) {
       });
       console.log('Customer updated with name from modal:', customerName, 'metadata and test clock reference');
       
-    } else if (flowType === 'starter_custom_flow' || flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'free_flow' || flowType === 'perlego_monthly_flow' || flowType === 'ona_core_flow' || flowType === 'stability_core_custom_credits_flow') {
-      const flowName = flowType === 'starter_custom_flow' ? 'Starter' : flowType === 'free_flow' ? 'Free' : flowType === 'core_custom_credits_flow' ? 'Core' : flowType === 'perlego_monthly_flow' ? 'Perlego-Monthly' : flowType === 'ona_core_flow' ? 'Ona-Core' : flowType === 'stability_core_custom_credits_flow' ? 'Stability-Core' : 'Advanced';
+    } else if (flowType === 'starter_custom_flow' || flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'stability_pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'free_flow' || flowType === 'perlego_monthly_flow' || flowType === 'ona_core_flow' || flowType === 'stability_core_custom_credits_flow') {
+      const flowName = flowType === 'starter_custom_flow' ? 'Starter' : flowType === 'free_flow' ? 'Free' : flowType === 'core_custom_credits_flow' ? 'Core' : flowType === 'stability_pro_custom_credits_flow' ? 'Stability-Pro' : flowType === 'perlego_monthly_flow' ? 'Perlego-Monthly' : flowType === 'ona_core_flow' ? 'Ona-Core' : flowType === 'stability_core_custom_credits_flow' ? 'Stability-Core' : 'Advanced';
       console.log(`Processing ${flowName} custom flow - customer and test clock already created`);
       
       // Test clock was already created in the custom flow, just reference it
@@ -620,13 +620,15 @@ export async function POST(request: NextRequest) {
       invoiceId = paidInvoice.id;
       creditGrantId = creditGrant.id;
       
-    } else if (flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'perlego_monthly_flow' || flowType === 'ona_core_flow' || flowType === 'stability_core_custom_credits_flow') {
-      // Advanced/Pro/Core/Perlego/Ona-Core/Stability-Core flow: Get pricing plan details and create billing intent
+    } else if (flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'stability_pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'perlego_monthly_flow' || flowType === 'ona_core_flow' || flowType === 'stability_core_custom_credits_flow') {
+      // Advanced/Pro/Stability-Pro/Core/Perlego/Ona-Core/Stability-Core flow: Get pricing plan details and create billing intent
       
       // Step 2 - Get pricing plan details  
       const pricingPlanId = session.metadata?.pricing_plan_id 
         || (flowType === 'pro_custom_credits_flow' 
               ? 'bpp_test_61TDiJJYF0IjlFXST16T5kls95SQJJF9DR1pbaQwqE08' // Pro plan
+              : flowType === 'stability_pro_custom_credits_flow'
+              ? 'bpp_test_61TRGAFBhWwiSLZp416T5kls95SQJJF9DR1pbaQwqQG0' // Stability Pro plan (same as Pro)
               : flowType === 'core_custom_credits_flow'
               ? 'bpp_test_61TMZYslMhAuWqiDV16T5kls95SQJJF9DR1pbaQwqC3M' // Core plan
               : flowType === 'stability_core_custom_credits_flow'
@@ -1044,7 +1046,7 @@ export async function POST(request: NextRequest) {
     const isFreeFlow = flowType === 'free_flow';
     const isPerlegoFlow = flowType === 'perlego_monthly_flow';
     const isOnaCoreFlow = flowType === 'ona_core_flow';
-    const isPricingPlanFlow = flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'perlego_monthly_flow' || flowType === 'ona_core_flow' || flowType === 'stability_core_custom_credits_flow';
+    const isPricingPlanFlow = flowType === 'advanced_custom_flow' || flowType === 'pro_custom_credits_flow' || flowType === 'stability_pro_custom_credits_flow' || flowType === 'core_custom_credits_flow' || flowType === 'perlego_monthly_flow' || flowType === 'ona_core_flow' || flowType === 'stability_core_custom_credits_flow';
     const planName = isPricingPlanFlow ? 'Pricing Plan' : isFreeFlow ? 'Free Plan' : 'Rate Card Plan';
     
     return NextResponse.json({
