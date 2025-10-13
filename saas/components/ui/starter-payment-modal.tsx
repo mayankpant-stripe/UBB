@@ -7,7 +7,7 @@ interface StarterPaymentModalProps {
   onClose: () => void;
   onSuccess: (data: { customerId: string; billingIntentId?: string; subscriptionId?: string; testClockId?: string }) => void;
   onError: (error: string) => void;
-  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual' | 'ona-core';
+  planType?: 'starter' | 'advanced' | 'pro' | 'core' | 'free' | 'perlego-monthly' | 'perlego-termly' | 'perlego-annual' | 'ona-core' | 'stability-core';
 }
 
 const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({ 
@@ -54,6 +54,8 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
         apiEndpoint = '/api/create-perlego-annual-flow';
       } else if (planType === 'ona-core') {
         apiEndpoint = '/api/create-ona-core-flow';
+      } else if (planType === 'stability-core') {
+        apiEndpoint = '/api/create-stability-core-flow';
       } else {
         onError('Unknown plan type');
         return;
