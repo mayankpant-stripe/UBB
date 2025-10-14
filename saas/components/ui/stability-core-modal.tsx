@@ -80,7 +80,7 @@ const StabilityCoreModal: React.FC<StabilityCoreModalProps> = ({
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Subscribe to Stability Core</h2>
             <p className="text-gray-600 text-sm">
-              $100 Prepaid Credits • Pricing Plan
+              500,000 Prepaid Credits • Pricing Plan
             </p>
           </div>
 

@@ -120,8 +120,8 @@ const StarterPaymentModal: React.FC<StarterPaymentModalProps> = ({
       case 'stability-pro':
         return {
           title: 'Stability Pro Plan',
-          price: '$100,000',
-          features: ['500,000 StabilityAI Credits', 'Priority scenario execution', 'Custom variables', 'Full-text execution log search']
+          price: '$1,000 per month',
+          features: ['10,000 StabilityAI Credits', 'Priority scenario execution', 'Custom variables', 'Full-text execution log search']
         };
       case 'core':
         return {

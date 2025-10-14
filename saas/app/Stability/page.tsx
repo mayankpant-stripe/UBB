@@ -188,7 +188,7 @@ export default function NewHackPage() {
             <div className="text-center">
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Core</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
-                <span className="align-top text-2xl mr-1">$</span>$100,000
+                <span className="align-top text-2xl mr-1">$</span>100,000
                 <span className="text-base font-medium text-gray-500 ml-1"> </span></div>
               <div className="text-gray-500 text-sm mb-6">500,000 StabilityAI Credits
               </div>
@@ -218,9 +218,9 @@ export default function NewHackPage() {
             <div className="text-center">
               <div className="text-sm font-semibold text-[#2A0148] mb-1">Pro</div>
               <div className="text-xl font-extrabold tracking-tight text-gray-900 mb-1">
-                <span className="align-top text-2xl mr-1">$</span>100,000
+                <span className="align-top text-2xl mr-1">$</span>1,000 per month
                 <span className="text-base font-medium text-gray-500 ml-1"></span></div>
-              <div className="text-gray-500 text-sm mb-6">500,000 StabilityAI Credits</div>
+              <div className="text-gray-500 text-sm mb-6">10,000 StabilityAI Credits</div>
               <button
                 onClick={handleProClick}
                 disabled={isProcessing}
