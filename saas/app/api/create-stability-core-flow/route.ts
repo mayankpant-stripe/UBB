@@ -59,16 +59,18 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`
       },
-      body: new URLSearchParams({
-        'name': name,
-        'email': email,
-        'test_clock': testClock.id,
-        'metadata[created_via]': 'stability_custom_credits_flow',
-        'metadata[plan]': 'stability_core_plan',
-        'metadata[pricing_plan_id]': 'bpp_test_61TR7HL9BnwPD8Aum16T5kls95SQJJF9DR1pbaQwq51c',
-        'metadata[test_clock_id]': testClock.id,
-        'metadata[timestamp]': new Date().toISOString()
-      })
+    body: new URLSearchParams({
+      'name': name,
+      'email': email,
+      'test_clock': testClock.id,
+      'metadata[created_via]': 'stability_custom_credits_flow',
+      'metadata[plan]': 'stability_core_plan',
+      'metadata[pricing_plan_id]': 'bpp_test_61TR7HL9BnwPD8Aum16T5kls95SQJJF9DR1pbaQwq51c',
+      'metadata[test_clock_id]': testClock.id,
+      'metadata[timestamp]': new Date().toISOString(),
+      'invoice_settings[custom_fields][0][name]': 'PO Number',
+      'invoice_settings[custom_fields][0][value]': 'PO1'
+    })
     });
 
     if (!customerResponse.ok) {

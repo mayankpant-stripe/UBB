@@ -67,7 +67,9 @@ export async function POST(request: NextRequest) {
         'metadata[plan]': 'stability_pro_plan',
         'metadata[pricing_plan_id]': 'bpp_test_61TRGAFBhWwiSLZp416T5kls95SQJJF9DR1pbaQwqQG0',
         'metadata[test_clock_id]': testClock.id,
-        'metadata[timestamp]': new Date().toISOString()
+        'metadata[timestamp]': new Date().toISOString(),
+        'invoice_settings[custom_fields][0][name]': 'PO Number',
+        'invoice_settings[custom_fields][0][value]': 'PO1'
       })
     });
 
